@@ -23,6 +23,7 @@ export class DisplayCommand implements Command<DisplayArgs> {
 
         this.logger.log(`Connecting to ${deviceType} screen`);
         this.displayDevice = await getDevice(deviceType, orientation, colorMode);
+        this.logger.log('Received device...', this.displayDevice)
         this.displayDevice.connect();
         this.logger.log(`Connected`);
 
