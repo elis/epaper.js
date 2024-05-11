@@ -1,5 +1,5 @@
 {
-    "name": "@epaperjs/cli",
+    "name": "@epaperjs/manual",
     "version": "2.1.3",
     "private": false,
     "description": "CLI for rendering URL onto ePaper display on Raspberry Pi",
@@ -29,6 +29,7 @@
     },
     "devDependencies": {
         "@types/yargs": "^17.0.7",
+        "@epaperjs/cli": "workspace:^",
         "@epaperjs/rpi-2in13-bc": "workspace:^",
         "@epaperjs/rpi-2in13-v2": "workspace:^",
         "@epaperjs/rpi-4in2": "workspace:^",
