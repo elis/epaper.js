@@ -65,6 +65,7 @@ async function getRpi7in5BV2(orientation?: Orientation): Promise<DisplayDeviceWR
         // const { Rpi7In5BV2 } = await import('@epaperjs/rpi-7in5b-v2');
         return new Rpi7In5BV2(orientation);
     } catch (e) {
+        console.log('Error:', e)
         throw new Error('Failed to import @epaperjs/rpi-7in5b-v2, make sure it is installed');
     }
 }

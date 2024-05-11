@@ -6,6 +6,9 @@
     "author": "samsonmking <samson@samsonmking.com>",
     "homepage": "https://github.com/samsonmking/epaper.js#readme",
     "license": "MIT",
+    "scripts": {
+        "clean": "rm -rf node_modules && rm -rf lib"
+    },
     "bin": {
         "ejs": "bin/ejs-cli"
     },
