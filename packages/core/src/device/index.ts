@@ -1,1 +1,1 @@
-export { DisplayDevice, ColorMode, Orientation } from './displayDevice';
+export { DisplayDeviceWRed, DisplayDevice, ColorMode, Orientation } from './displayDevice';

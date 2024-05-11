@@ -23,3 +23,15 @@ export interface DisplayDevice {
     displayPng(img: Buffer, options?: ImageOptions): Promise<void>;
     disconnect(): void;
 }
+
+export interface DisplayDeviceWRed {
+    orientation: Orientation;
+    readonly height: number;
+    readonly width: number;
+    connect(): void;
+    wake(): void;
+    clear(): void;
+    sleep(): void;
+    displayPng(img: Buffer, imgRed: Buffer, options?: ImageOptions, optionsRed?: ImageOptions): Promise<void>;
+    disconnect(): void;
+}
