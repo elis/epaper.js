@@ -32,6 +32,7 @@ export interface DisplayDeviceWRed {
     wake(): void;
     clear(): void;
     sleep(): void;
-    displayPng(img: Buffer, imgRed: Buffer, options?: ImageOptions, optionsRed?: ImageOptions): Promise<void>;
+    displayPng(img: Buffer, options?: ImageOptions): Promise<void>;
+    displayPng2(img: Buffer, imgRed: Buffer, options?: ImageOptions, optionsRed?: ImageOptions): Promise<void>;
     disconnect(): void;
 }

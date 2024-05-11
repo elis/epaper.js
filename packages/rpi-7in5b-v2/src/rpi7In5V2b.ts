@@ -40,7 +40,20 @@ export class Rpi7In5BV2 implements DisplayDeviceWRed {
         }
     }
 
-    public async displayPng(img: Buffer, imgRed: Buffer, options?: ImageOptions, optionsRed?: ImageOptions): Promise<void> {
+    public async displayPng(img: Buffer, options?: ImageOptions): Promise<void> {
+        const converter = new Monochrome(img);
+        const blackBuffer = await converter.toBlack({
+            ...options,
+            rotate90Degrees: this.orientation === Orientation.Vertical,
+        });
+
+        const redBuffer = Buffer.from([])
+
+
+        this.driver.display(blackBuffer, redBuffer);
+    }
+
+    public async displayPng2(img: Buffer, imgRed: Buffer, options?: ImageOptions, optionsRed?: ImageOptions): Promise<void> {
         const converter = new Monochrome(img);
         const blackBuffer = await converter.toBlack({
             ...options,

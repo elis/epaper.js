@@ -1,9 +1,9 @@
-import { DisplayDevice, Logger } from '@epaperjs/core';
+import { DisplayDevice, DisplayDeviceWRed, Logger } from '@epaperjs/core';
 import { getDevice } from '../deviceFactory';
 import { Command } from './command';
 
 export class ClearCommand implements Command<BaseArgs> {
-    private displayDevice?: DisplayDevice;
+    private displayDevice?: DisplayDevice | DisplayDeviceWRed;
 
     constructor(private readonly logger: Logger) {}
 

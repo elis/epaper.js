@@ -1,4 +1,4 @@
-import { DisplayDevice, getPageRpi, BrowserPage, Logger } from '@epaperjs/core';
+import { DisplayDevice, getPageRpi, BrowserPage, Logger, DisplayDeviceWRed } from '@epaperjs/core';
 import { getDevice } from '../deviceFactory';
 import { Command } from './command';
 import { DisplayArgs } from './display';
@@ -8,7 +8,7 @@ export interface RefreshArgs extends DisplayArgs {
 }
 
 export class RefreshCommand implements Command<RefreshArgs> {
-    private displayDevice?: DisplayDevice;
+    private displayDevice?: DisplayDevice | DisplayDeviceWRed;
     private browserPage?: BrowserPage;
 
     constructor(private readonly logger: Logger) {}

@@ -1,4 +1,4 @@
-import { ColorMode, DisplayDevice, getPageRpi, Orientation, BrowserPage, Logger } from '@epaperjs/core';
+import { ColorMode, DisplayDevice, getPageRpi, Orientation, BrowserPage, Logger, DisplayDeviceWRed } from '@epaperjs/core';
 import { getDevice } from '../deviceFactory';
 import { Command } from './command';
 
@@ -13,7 +13,7 @@ export interface DisplayArgs extends BaseArgs {
 }
 
 export class DisplayCommand implements Command<DisplayArgs> {
-    private displayDevice?: DisplayDevice;
+    private displayDevice?: DisplayDevice | DisplayDeviceWRed;
     private browserPage?: BrowserPage;
 
     constructor(private readonly logger: Logger) {}
@@ -33,6 +33,9 @@ export class DisplayCommand implements Command<DisplayArgs> {
             username: displayArgs.username,
             password: displayArgs.password,
         });
+        // if ('displayPng2' in this.displayDevice)
+        //     await this.displayDevice.displayPng2(imgOfUrl,  { dither });
+        // else
         await this.displayDevice.displayPng(imgOfUrl, { dither });
     }
 
