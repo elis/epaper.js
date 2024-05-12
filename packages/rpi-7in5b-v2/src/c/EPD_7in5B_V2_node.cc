@@ -58,8 +58,6 @@ Napi::Object SetupNapi(Napi::Env env, Napi::Object exports) {
     exports.Set(Napi::String::New(env, "init"),
                 Napi::Function::New(env, Init));
 
-
-
     exports.Set(Napi::String::New(env, "display"),
                 Napi::Function::New(env, Display));
 

@@ -35,8 +35,10 @@ export class DisplayCommand implements Command<DisplayArgs> {
             password: displayArgs.password,
         });
         console.log('Got img of url', { imgOfUrl })
-        if ('displayPng2' in this.displayDevice)
+        if ('displayPng2' in this.displayDevice) {
+            console.log('Displaying PNG2...')
             await this.displayDevice.displayPng2(imgOfUrl, imgOfUrl, { dither });
+        }
         else
         await this.displayDevice.displayPng(imgOfUrl, { dither });
     }

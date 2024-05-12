@@ -36,6 +36,7 @@ int EPD_RST_PIN;
 int EPD_DC_PIN;
 int EPD_CS_PIN;
 int EPD_BUSY_PIN;
+int EPD_PWR_PIN;
 
 /**
  * GPIO read and write
@@ -255,20 +256,24 @@ void DEV_GPIO_Init(void)
 	EPD_RST_PIN     = 17;
 	EPD_DC_PIN      = 25;
 	EPD_CS_PIN      = 8;
+	EPD_PWR_PIN = 18;
 	EPD_BUSY_PIN    = 24;
 #elif JETSON
 	EPD_RST_PIN     = GPIO17;
 	EPD_DC_PIN      = GPIO25;
 	EPD_CS_PIN      = SPI0_CS0;
+	EPD_PWR_PIN = GPIO18;
 	EPD_BUSY_PIN    = GPIO24;
 #endif
 
 	DEV_GPIO_Mode(EPD_RST_PIN, 1);
 	DEV_GPIO_Mode(EPD_DC_PIN, 1);
 	DEV_GPIO_Mode(EPD_CS_PIN, 1);
+	DEV_GPIO_Mode(EPD_PWR_PIN, 1);
 	DEV_GPIO_Mode(EPD_BUSY_PIN, 0);
 
 	DEV_Digital_Write(EPD_CS_PIN, 1);
+	DEV_Digital_Write(EPD_PWR_PIN, 1);
 }
 /******************************************************************************
 function:	Module Initialize, the library and initialize the pins, SPI protocol
@@ -314,9 +319,9 @@ UBYTE DEV_Module_Init(void)
 	wiringPiSPISetup(0,10000000);
 	// wiringPiSPISetupMode(0, 32000000, 0);
 #elif USE_DEV_LIB
-	printf("Write and read /dev/spidev0.1 \r\n");
+	printf("Write and read /dev/spidev0.0 \r\n");
 	DEV_GPIO_Init();
-	DEV_HARDWARE_SPI_begin("/dev/spidev0.1");
+	DEV_HARDWARE_SPI_begin("/dev/spidev0.0");
 	DEV_HARDWARE_SPI_setSpeed(10000000);
 #endif
 
@@ -329,9 +334,9 @@ UBYTE DEV_Module_Init(void)
 	SYSFS_software_spi_setDataMode(SOFTWARE_SPI_Mode0);
 	SYSFS_software_spi_setClockDivider(SOFTWARE_SPI_CLOCK_DIV4);
 #elif USE_HARDWARE_LIB
-	printf("Write and read /dev/spidev0.1 \r\n");
+	printf("Write and read /dev/spidev0.0 \r\n");
 	DEV_GPIO_Init();
-	DEV_HARDWARE_SPI_begin("/dev/spidev0.1");
+	DEV_HARDWARE_SPI_begin("/dev/spidev0.0");
 #endif
 
 #endif
@@ -349,6 +354,7 @@ void DEV_Module_Exit(void)
 #ifdef RPI
 #ifdef USE_BCM2835_LIB
 	DEV_Digital_Write(EPD_CS_PIN, LOW);
+	DEV_Digital_Write(EPD_PWR_PIN, LOW);
 	DEV_Digital_Write(EPD_DC_PIN, LOW);
 	DEV_Digital_Write(EPD_RST_PIN, LOW);
 
@@ -356,11 +362,13 @@ void DEV_Module_Exit(void)
 	bcm2835_close();
 #elif USE_WIRINGPI_LIB
 	DEV_Digital_Write(EPD_CS_PIN, 0);
+	DEV_Digital_Write(EPD_PWR_PIN, 0);
 	DEV_Digital_Write(EPD_DC_PIN, 0);
 	DEV_Digital_Write(EPD_RST_PIN, 0);
 #elif USE_DEV_LIB
 	DEV_HARDWARE_SPI_end();
 	DEV_Digital_Write(EPD_CS_PIN, 0);
+	DEV_Digital_Write(EPD_PWR_PIN, 0);
 	DEV_Digital_Write(EPD_DC_PIN, 0);
 	DEV_Digital_Write(EPD_RST_PIN, 0);
 #endif
@@ -368,6 +376,7 @@ void DEV_Module_Exit(void)
 #elif JETSON
 #ifdef USE_DEV_LIB
 	SYSFS_GPIO_Unexport(EPD_CS_PIN);
+		SYSFS_GPIO_Unexport(EPD_PWR_PIN;
 	SYSFS_GPIO_Unexport(EPD_DC_PIN);
 	SYSFS_GPIO_Unexport(EPD_RST_PIN);
 	SYSFS_GPIO_Unexport(EPD_BUSY_PIN);
