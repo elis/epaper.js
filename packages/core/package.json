@@ -7,6 +7,9 @@
     "homepage": "https://github.com/samsonmking/epaper.js#readme",
     "license": "MIT",
     "main": "lib/index.js",
+    "scripts": {
+        "clean": "rm -rf node_modules && rm -rf lib"
+    },
     "directories": {
         "lib": "lib"
     },

@@ -27,7 +27,7 @@
 # THE SOFTWARE.
 #
 ******************************************************************************/
-#include "EPD_7in5b_V2.h"
+#include "EPD_7in5B_V2.h"
 #include "Debug.h"
 
 /******************************************************************************
@@ -77,11 +77,15 @@ parameter:
 void EPD_7IN5B_V2_WaitUntilIdle(void)
 {
     Debug("e-Paper busy\r\n");
-	do	{
-		DEV_Delay_ms(20);   
-	}while(!(DEV_Digital_Read(EPD_BUSY_PIN)));
-	DEV_Delay_ms(20);      
+    printf("e-Paper busy...\n");
+
+    do
+    {
+        DEV_Delay_ms(20);
+    } while (!(DEV_Digital_Read(EPD_BUSY_PIN)));
+    DEV_Delay_ms(20);      
 	Debug("e-Paper busy release\r\n");
+    printf("e-Paper busy release...\n");
 }
 
 
@@ -215,22 +219,31 @@ void EPD_7IN5B_V2_Display(const UBYTE *blackimage, const UBYTE *ryimage)
     UDOUBLE Width, Height;
     Width =(EPD_7IN5B_V2_WIDTH % 8 == 0)?(EPD_7IN5B_V2_WIDTH / 8 ):(EPD_7IN5B_V2_WIDTH / 8 + 1);
     Height = EPD_7IN5B_V2_HEIGHT;
+    printf("Display: %d x %d\n", Width, Height);
 
- //send black data
+    // send black data
     EPD_7IN5B_V2_SendCommand(0x10);
+    printf("Sending black data...\n");
+
     for (UDOUBLE j = 0; j < Height; j++) {
         for (UDOUBLE i = 0; i < Width; i++) {
+            // printf(".");
             EPD_7IN5B_V2_SendData(blackimage[i + j * Width]);
         }
+        // printf("\n Black: %d\n", j);
     }
 
     //send red data
     EPD_7IN5B_V2_SendCommand(0x13);
+    printf("Sending red data...\n");
     for (UDOUBLE j = 0; j < Height; j++) {
         for (UDOUBLE i = 0; i < Width; i++) {
+            // printf(".");
             EPD_7IN5B_V2_SendData(~ryimage[i + j * Width]);
         }
+        // printf("\n Red: %d\n", j);
     }
+    printf("Complete... Sending turn on display...\n");
     EPD_7IN5B_V2_TurnOnDisplay();
 }
 

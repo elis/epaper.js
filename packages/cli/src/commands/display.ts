@@ -23,6 +23,7 @@ export class DisplayCommand implements Command<DisplayArgs> {
 
         this.logger.log(`Connecting to ${deviceType} screen`);
         this.displayDevice = await getDevice(deviceType, orientation, colorMode);
+        this.logger.log('Received device...', this.displayDevice)
         this.displayDevice.connect();
         this.logger.log(`Connected`);
 
@@ -33,9 +34,12 @@ export class DisplayCommand implements Command<DisplayArgs> {
             username: displayArgs.username,
             password: displayArgs.password,
         });
-        // if ('displayPng2' in this.displayDevice)
-        //     await this.displayDevice.displayPng2(imgOfUrl,  { dither });
-        // else
+        console.log('Got img of url', { imgOfUrl })
+        if ('displayPng2' in this.displayDevice) {
+            console.log('Displaying PNG2...')
+            await this.displayDevice.displayPng2(imgOfUrl, imgOfUrl, { dither });
+        }
+        else
         await this.displayDevice.displayPng(imgOfUrl, { dither });
     }
 

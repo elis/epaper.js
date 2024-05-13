@@ -1,4 +1,7 @@
 import { ColorMode, DisplayDevice, DisplayDeviceWRed, Orientation } from '@epaperjs/core';
+import { Rpi7In5V2 } from '@epaperjs/rpi-7in5-v2'
+import { Rpi7In5BV2 } from '@epaperjs/rpi-7in5b-v2'
+
 
 export async function getDevice(
     deviceType: string,
@@ -51,7 +54,7 @@ async function getRpi4In2(orientation?: Orientation, colorMode?: ColorMode): Pro
 
 async function getRpi7in5V2(orientation?: Orientation, colorMode?: ColorMode): Promise<DisplayDevice> {
     try {
-        const { Rpi7In5V2 } = await import('@epaperjs/rpi-7in5-v2');
+        // const { Rpi7In5V2 } = await import('@epaperjs/rpi-7in5-v2');
         return new Rpi7In5V2(orientation, colorMode);
     } catch (e) {
         throw new Error('Failed to import @epaperjs/rpi-7in5-v2, make sure it is installed');
@@ -59,9 +62,10 @@ async function getRpi7in5V2(orientation?: Orientation, colorMode?: ColorMode): P
 }
 async function getRpi7in5BV2(orientation?: Orientation): Promise<DisplayDeviceWRed> {
     try {
-        const { Rpi7In5BV2 } = await import('@epaperjs/rpi-7in5b-v2');
+        // const { Rpi7In5BV2 } = await import('@epaperjs/rpi-7in5b-v2');
         return new Rpi7In5BV2(orientation);
     } catch (e) {
+        console.log('Error:', e)
         throw new Error('Failed to import @epaperjs/rpi-7in5b-v2, make sure it is installed');
     }
 }
