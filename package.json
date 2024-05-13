@@ -2,16 +2,20 @@
     "private": true,
     "description": "Simple e-Paper display on a Raspberry Pi using Javascript and HTML",
     "scripts": {
-        "preinstall": "npx only-allow pnpm",
-        "clean": "tsc --build --clean",
-        "build": "tsc --build",
-        "build:clean": "pnpm clean && pnpm build",
+        "preinstall": "npx only-allow yarn",
+        "clean": "turbo run clean",
+        "dev": "turbo run dev",
+        "build": "turbo run build",
+        "build:clean": "yarn clean && yarn build",
         "format:write": "prettier --write .",
         "format:check": "prettier --check .",
         "changeset:add": "changeset",
         "ci:publish": "changeset publish",
         "ci:version": "changeset version"
     },
+    "workspaces": [
+      "packages/*"
+    ],
     "author": {
         "name": "Samson King",
         "email": "samson@samsonmking.com",
