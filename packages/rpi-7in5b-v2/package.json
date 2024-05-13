@@ -20,7 +20,9 @@
         "url": "git+https://github.com/samsonmking/epaper.js.git"
     },
     "scripts": {
-        "build": "node-gyp rebuild",
+        "build": "yarn build:gyp && yarn build:package",
+        "build:gyp": "node-gyp rebuild",
+        "build:package": "tsc",
         "clean": "node-gyp clean && rm -rf ndoe_modules && rm -rf lib",
         "build:clean": "pnpm clean && pnpm build"
     },
