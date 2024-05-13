@@ -227,10 +227,10 @@ void EPD_7IN5B_V2_Display(const UBYTE *blackimage, const UBYTE *ryimage)
 
     for (UDOUBLE j = 0; j < Height; j++) {
         for (UDOUBLE i = 0; i < Width; i++) {
-            printf(".");
+            // printf(".");
             EPD_7IN5B_V2_SendData(blackimage[i + j * Width]);
         }
-        printf("\n Black: %d\n", j);
+        // printf("\n Black: %d\n", j);
     }
 
     //send red data
@@ -238,10 +238,10 @@ void EPD_7IN5B_V2_Display(const UBYTE *blackimage, const UBYTE *ryimage)
     printf("Sending red data...\n");
     for (UDOUBLE j = 0; j < Height; j++) {
         for (UDOUBLE i = 0; i < Width; i++) {
-            printf(".");
+            // printf(".");
             EPD_7IN5B_V2_SendData(~ryimage[i + j * Width]);
         }
-        printf("\n Red: %d\n", j);
+        // printf("\n Red: %d\n", j);
     }
     printf("Complete... Sending turn on display...\n");
     EPD_7IN5B_V2_TurnOnDisplay();
