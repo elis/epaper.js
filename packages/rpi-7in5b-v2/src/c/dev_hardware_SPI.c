@@ -42,18 +42,46 @@
 #include <fcntl.h> 
 #include <sys/ioctl.h> 
 #include <linux/types.h> 
-#include <linux/spi/spidev.h> 
+#include <linux/spi/spidev.h>
+
+#ifdef SPI_LOOP
+#undef SPI_LOOP
+#endif
 
 HARDWARE_SPI hardware_SPI;
 
-static uint8_t bits = 8; 
+static uint8_t bits = 8;
 
-#define SPI_CS_HIGH     0x04                //Chip select high  
-#define SPI_LSB_FIRST   0x08                //LSB  
+// #define SPI_CS_HIGH     0x04                //Chip select high
+// #define SPI_LSB_FIRST   0x08                //LSB
+// #define SPI_3WIRE       0x10                //3-wire mode SI and SO same line
+// #define SPI_LOOP        0x20                //Loopback mode
+// #define SPI_NO_CS       0x40                //A single device occupies one SPI bus, so there is no chip select
+// #define SPI_READY       0x80                //Slave pull low to stop data transmission
+
+#ifndef SPI_CS_HIGH
+#define SPI_CS_HIGH 0x04 // Chip select high
+#endif
+
+#ifndef SPI_LSB_FIRST
+#define SPI_LSB_FIRST 0x08 // LSB
+#endif
+
+#ifndef SPI_3WIRE
 #define SPI_3WIRE       0x10                //3-wire mode SI and SO same line
-#define SPI_LOOP        0x20                //Loopback mode  
-#define SPI_NO_CS       0x40                //A single device occupies one SPI bus, so there is no chip select 
-#define SPI_READY       0x80                //Slave pull low to stop data transmission  
+#endif
+
+#ifndef SPI_LOOP
+#define SPI_LOOP 0x20 // Loopback mode
+#endif
+
+#ifndef SPI_NO_CS
+#define SPI_NO_CS 0x40 // A single device occupies one SPI bus, so there is no chip select
+#endif
+
+#ifndef SPI_READY
+#define SPI_READY 0x80 // Slave pull low to stop data transmission
+#endif
 
 struct spi_ioc_transfer tr;
 
